@@ -8,6 +8,8 @@
 
 import UIKit
 import CoreData
+import RxSwift
+import RxCocoa
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -61,7 +63,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
         return container
     }()
-
+    
+    struct User: Decodable {
+        let id: Int
+        let name: String
+        let email: String
+    }
+    
+    static func getAllUsers(context: NSManagedObjectContext) -> Completable {
+        getAllUsersData()
+            .map { try JSONDecoder().decode([User].self, from: $0) }
+            .flatMapCompletable { createUserManagedObjects(users: $0, context: context) }
+    }
+    
+    static func createUserManagedObjects(users: [User], context: NSManagedObjectContext) -> Completable {
+        .create(context) {
+            for user in users {
+                let userMO = UserMO(context: context)
+                userMO.id = Int64(user.id)
+                userMO.name = user.name
+                userMO.email = user.email
+            }
+        }
+    }
+    
+    static func getAllUsersData() -> Single<Data> {
+        let request = URLRequest(url: URL(string: "https://jsonplaceholder.typicode.com/users")!)
+        
+        return URLSession.shared.rx.data(request: request).asSingle()
+    }
+    
     // MARK: - Core Data Saving support
 
     func saveContext () {

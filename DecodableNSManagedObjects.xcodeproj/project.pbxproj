@@ -3,10 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E02C3C0E2498F9DC006B3614 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E02C3C0D2498F9DC006B3614 /* RxSwift */; };
+		E02C3C102498F9DC006B3614 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = E02C3C0F2498F9DC006B3614 /* RxCocoa */; };
+		E02C3C132498FCA0006B3614 /* Completable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02C3C112498FCA0006B3614 /* Completable+Extension.swift */; };
+		E02C3C142498FCA0006B3614 /* Single+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02C3C122498FCA0006B3614 /* Single+Extension.swift */; };
 		E0838A6C2498F0B20050AA2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0838A6B2498F0B20050AA2E /* AppDelegate.swift */; };
 		E0838A6E2498F0B20050AA2E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0838A6D2498F0B20050AA2E /* SceneDelegate.swift */; };
 		E0838A712498F0B20050AA2E /* DecodableNSManagedObjects.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E0838A6F2498F0B20050AA2E /* DecodableNSManagedObjects.xcdatamodeld */; };
@@ -17,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E02C3C112498FCA0006B3614 /* Completable+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Completable+Extension.swift"; sourceTree = "<group>"; };
+		E02C3C122498FCA0006B3614 /* Single+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Single+Extension.swift"; sourceTree = "<group>"; };
 		E0838A682498F0B20050AA2E /* DecodableNSManagedObjects.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DecodableNSManagedObjects.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0838A6B2498F0B20050AA2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0838A6D2498F0B20050AA2E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -33,6 +39,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E02C3C102498F9DC006B3614 /* RxCocoa in Frameworks */,
+				E02C3C0E2498F9DC006B3614 /* RxSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +69,8 @@
 				E0838A6B2498F0B20050AA2E /* AppDelegate.swift */,
 				E0838A6D2498F0B20050AA2E /* SceneDelegate.swift */,
 				E0838A722498F0B20050AA2E /* ContentView.swift */,
+				E02C3C112498FCA0006B3614 /* Completable+Extension.swift */,
+				E02C3C122498FCA0006B3614 /* Single+Extension.swift */,
 				E0838A742498F0B30050AA2E /* Assets.xcassets */,
 				E0838A792498F0B30050AA2E /* LaunchScreen.storyboard */,
 				E0838A7C2498F0B30050AA2E /* Info.plist */,
@@ -94,6 +104,10 @@
 			dependencies = (
 			);
 			name = DecodableNSManagedObjects;
+			packageProductDependencies = (
+				E02C3C0D2498F9DC006B3614 /* RxSwift */,
+				E02C3C0F2498F9DC006B3614 /* RxCocoa */,
+			);
 			productName = DecodableNSManagedObjects;
 			productReference = E0838A682498F0B20050AA2E /* DecodableNSManagedObjects.app */;
 			productType = "com.apple.product-type.application";
@@ -122,6 +136,9 @@
 				Base,
 			);
 			mainGroup = E0838A5F2498F0B10050AA2E;
+			packageReferences = (
+				E02C3C0C2498F9DB006B3614 /* XCRemoteSwiftPackageReference "RxSwift" */,
+			);
 			productRefGroup = E0838A692498F0B20050AA2E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -152,7 +169,9 @@
 				E0838A712498F0B20050AA2E /* DecodableNSManagedObjects.xcdatamodeld in Sources */,
 				E0838A6C2498F0B20050AA2E /* AppDelegate.swift in Sources */,
 				E0838A732498F0B20050AA2E /* ContentView.swift in Sources */,
+				E02C3C132498FCA0006B3614 /* Completable+Extension.swift in Sources */,
 				E0838A6E2498F0B20050AA2E /* SceneDelegate.swift in Sources */,
+				E02C3C142498FCA0006B3614 /* Single+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,6 +365,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E02C3C0C2498F9DB006B3614 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E02C3C0D2498F9DC006B3614 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E02C3C0C2498F9DB006B3614 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		E02C3C0F2498F9DC006B3614 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E02C3C0C2498F9DB006B3614 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		E0838A6F2498F0B20050AA2E /* DecodableNSManagedObjects.xcdatamodeld */ = {
