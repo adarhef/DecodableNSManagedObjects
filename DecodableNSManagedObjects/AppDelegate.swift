@@ -64,27 +64,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return container
     }()
     
-    struct User: Decodable {
-        let id: Int
-        let name: String
-        let email: String
-    }
-    
     static func getAllUsers(context: NSManagedObjectContext) -> Completable {
-        getAllUsersData()
-            .map { try JSONDecoder().decode([User].self, from: $0) }
-            .flatMapCompletable { createUserManagedObjects(users: $0, context: context) }
-    }
-    
-    static func createUserManagedObjects(users: [User], context: NSManagedObjectContext) -> Completable {
-        .create(context) {
-            for user in users {
-                let userMO = UserMO(context: context)
-                userMO.id = Int64(user.id)
-                userMO.name = user.name
-                userMO.email = user.email
-            }
-        }
+        let decoder = JSONDecoder()
+        decoder.userInfo = [.context: context]
+        
+        return getAllUsersData()
+            .map { try decoder.decode([UserMO].self, from: $0) }
+            .asCompletable()
     }
     
     static func getAllUsersData() -> Single<Data> {
