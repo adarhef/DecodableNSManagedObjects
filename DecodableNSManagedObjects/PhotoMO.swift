@@ -1,5 +1,5 @@
 //
-//  UserMO.swift
+//  PhotoMO.swift
 //  DecodableNSManagedObjects
 //
 //  Created by Adar Hefer on 19/06/2020.
@@ -8,17 +8,21 @@
 
 import CoreData
 
-@objc(UserMO)
-class UserMO: NSManagedObject, Decodable {
+@objc(PhotoMO)
+class PhotoMO: NSManagedObject, Decodable {
     
     @NSManaged var id: Int
-    @NSManaged var name: String
-    @NSManaged var email: String
+    @NSManaged var albumId: Int
+    @NSManaged var title: String
+    @NSManaged var url: URL
+    @NSManaged var thumbnailUrl: URL
 
     enum CodingKeys: CodingKey {
         case id
-        case name
-        case email
+        case albumId
+        case title
+        case url
+        case thumbnailUrl
     }
 
     required convenience init(from decoder: Decoder) throws {
@@ -30,8 +34,10 @@ class UserMO: NSManagedObject, Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         id = try container.decode(Int.self, forKey: .id)
-        name = try container.decode(String.self, forKey: .name)
-        email = try container.decode(String.self, forKey: .email)
+        albumId = try container.decode(Int.self, forKey: .albumId)
+        title = try container.decode(String.self, forKey: .title)
+        url = try container.decode(URL.self, forKey: .url)
+        thumbnailUrl = try container.decode(URL.self, forKey: .thumbnailUrl)
     }
 }
 

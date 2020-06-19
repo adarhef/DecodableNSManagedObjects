@@ -11,7 +11,7 @@
 		E02C3C102498F9DC006B3614 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = E02C3C0F2498F9DC006B3614 /* RxCocoa */; };
 		E02C3C132498FCA0006B3614 /* Completable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02C3C112498FCA0006B3614 /* Completable+Extension.swift */; };
 		E02C3C142498FCA0006B3614 /* Single+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02C3C122498FCA0006B3614 /* Single+Extension.swift */; };
-		E07E1810249CB73900A2BA63 /* UserMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07E180F249CB73900A2BA63 /* UserMO.swift */; };
+		E07E1810249CB73900A2BA63 /* PhotoMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07E180F249CB73900A2BA63 /* PhotoMO.swift */; };
 		E0838A6C2498F0B20050AA2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0838A6B2498F0B20050AA2E /* AppDelegate.swift */; };
 		E0838A6E2498F0B20050AA2E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0838A6D2498F0B20050AA2E /* SceneDelegate.swift */; };
 		E0838A712498F0B20050AA2E /* DecodableNSManagedObjects.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E0838A6F2498F0B20050AA2E /* DecodableNSManagedObjects.xcdatamodeld */; };
@@ -24,7 +24,7 @@
 /* Begin PBXFileReference section */
 		E02C3C112498FCA0006B3614 /* Completable+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Completable+Extension.swift"; sourceTree = "<group>"; };
 		E02C3C122498FCA0006B3614 /* Single+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Single+Extension.swift"; sourceTree = "<group>"; };
-		E07E180F249CB73900A2BA63 /* UserMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMO.swift; sourceTree = "<group>"; };
+		E07E180F249CB73900A2BA63 /* PhotoMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMO.swift; sourceTree = "<group>"; };
 		E0838A682498F0B20050AA2E /* DecodableNSManagedObjects.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DecodableNSManagedObjects.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0838A6B2498F0B20050AA2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0838A6D2498F0B20050AA2E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -71,7 +71,7 @@
 				E0838A6B2498F0B20050AA2E /* AppDelegate.swift */,
 				E0838A6D2498F0B20050AA2E /* SceneDelegate.swift */,
 				E0838A722498F0B20050AA2E /* ContentView.swift */,
-				E07E180F249CB73900A2BA63 /* UserMO.swift */,
+				E07E180F249CB73900A2BA63 /* PhotoMO.swift */,
 				E02C3C112498FCA0006B3614 /* Completable+Extension.swift */,
 				E02C3C122498FCA0006B3614 /* Single+Extension.swift */,
 				E0838A742498F0B30050AA2E /* Assets.xcassets */,
@@ -169,7 +169,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E07E1810249CB73900A2BA63 /* UserMO.swift in Sources */,
+				E07E1810249CB73900A2BA63 /* PhotoMO.swift in Sources */,
 				E0838A712498F0B20050AA2E /* DecodableNSManagedObjects.xcdatamodeld in Sources */,
 				E0838A6C2498F0B20050AA2E /* AppDelegate.swift in Sources */,
 				E0838A732498F0B20050AA2E /* ContentView.swift in Sources */,

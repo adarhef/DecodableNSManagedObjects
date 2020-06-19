@@ -10,23 +10,30 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-    @FetchRequest(entity: UserMO.entity(),
-                  sortDescriptors: [.init(keyPath: \UserMO.name,
+    @FetchRequest(entity: PhotoMO.entity(),
+                  sortDescriptors: [.init(keyPath: \PhotoMO.albumId,
                                           ascending: true)])
-    var users: FetchedResults<UserMO>
-    
-    @Environment(\.managedObjectContext) var moc
-    
+    var photos: FetchedResults<PhotoMO>
+        
     var body: some View {
         NavigationView {
             List {
-                ForEach(users, id: \.id) { user in
-                    Text(user.name ?? "Unknown")
+                ForEach(photos, id: \.id) { photo in
+                    Text(photo.title)
                 }
             }
-            .navigationBarTitle(Text("Users"))
-            .navigationBarItems(trailing: Button(action: {
-                _ = AppDelegate.getAllUsers(context: self.moc).subscribe()
+            .navigationBarTitle(Text("Photos"))
+            .navigationBarItems(leading: Button(action: {
+                _ = AppDelegate.deleteAllPhotos().subscribe()
+            }, label: { Text("Delete All") }),
+                                trailing: Button(action: {
+                let start = CFAbsoluteTimeGetCurrent()
+                
+                _ = AppDelegate.getAllPhotos()
+                    .subscribe(onCompleted: {
+                        let elapsed = CFAbsoluteTimeGetCurrent() - start
+                        print("Storing Photos took \(elapsed) seconds")
+                    })
             }, label: { Text("Get All") }))
         }
     }
@@ -34,8 +41,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
+        let context = AppDelegate.persistentContainer.viewContext
         
         return ContentView().environment(\.managedObjectContext, context)
     }

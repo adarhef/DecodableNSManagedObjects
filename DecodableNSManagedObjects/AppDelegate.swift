@@ -37,63 +37,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Core Data stack
 
-    lazy var persistentContainer: NSPersistentContainer = {
-        /*
-         The persistent container for the application. This implementation
-         creates and returns a container, having loaded the store for the
-         application to it. This property is optional since there are legitimate
-         error conditions that could cause the creation of the store to fail.
-        */
+    static let persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "DecodableNSManagedObjects")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error as NSError? {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                 
-                /*
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
-                 */
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
+        container.loadPersistentStores { _, _ in }
+        container.viewContext.automaticallyMergesChangesFromParent = true
+        
         return container
     }()
     
-    static func getAllUsers(context: NSManagedObjectContext) -> Completable {
+    static func deleteAllPhotos() -> Completable {
+        let context = persistentContainer.newBackgroundContext()
+        
+        return .create(context) {
+            let request = NSFetchRequest<PhotoMO>(entityName: PhotoMO.entity().name!)
+            for photo in try context.fetch(request) {
+                context.delete(photo)
+            }
+            try context.save()
+        }
+    }
+    
+    static func getAllPhotos() -> Completable {
+        let context = persistentContainer.newBackgroundContext()
+        context.mergePolicy = NSMergePolicy.overwrite
         let decoder = JSONDecoder()
         decoder.userInfo = [.context: context]
         
-        return getAllUsersData()
-            .map { try decoder.decode([UserMO].self, from: $0) }
+        let start = CFAbsoluteTimeGetCurrent()
+        
+        let elapsed = CFAbsoluteTimeGetCurrent() - start
+        print("Storing Photos took \(elapsed) seconds")
+        return getAllPhotosData()
+            .map { try decoder.decode([PhotoMO].self, from: $0) }
+            .do(onSuccess: { _ in try context.save() })
             .asCompletable()
+        
     }
     
-    static func getAllUsersData() -> Single<Data> {
-        let request = URLRequest(url: URL(string: "https://jsonplaceholder.typicode.com/users")!)
+    static func getAllPhotosData() -> Single<Data> {
+        let request = URLRequest(url: URL(string: "https://jsonplaceholder.typicode.com/photos")!)
         
         return URLSession.shared.rx.data(request: request).asSingle()
     }
-    
-    // MARK: - Core Data Saving support
-
-    func saveContext () {
-        let context = persistentContainer.viewContext
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
-    }
-
 }
 
