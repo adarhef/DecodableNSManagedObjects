@@ -62,11 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         context.mergePolicy = NSMergePolicy.overwrite
         let decoder = JSONDecoder()
         decoder.userInfo = [.context: context]
-        
-        let start = CFAbsoluteTimeGetCurrent()
-        
-        let elapsed = CFAbsoluteTimeGetCurrent() - start
-        print("Storing Photos took \(elapsed) seconds")
+
         return getAllPhotosData()
             .map { try decoder.decode([PhotoMO].self, from: $0) }
             .do(onSuccess: { _ in try context.save() })
