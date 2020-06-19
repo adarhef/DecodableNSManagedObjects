@@ -19,7 +19,7 @@ struct ContentView: View {
         NavigationView {
             List {
                 ForEach(photos, id: \.id) { photo in
-                    Text(photo.title)
+                    Text(photo.title ?? "No Title")
                 }
             }
             .navigationBarTitle(Text("Photos"))

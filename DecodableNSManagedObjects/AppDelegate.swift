@@ -57,17 +57,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    struct Photo: Decodable {
+        let id: Int
+        let albumId: Int
+        let title: String
+        let url: URL
+        let thumbnailUrl: URL
+    }
+
     static func getAllPhotos() -> Completable {
         let context = persistentContainer.newBackgroundContext()
         context.mergePolicy = NSMergePolicy.overwrite
         let decoder = JSONDecoder()
-        decoder.userInfo = [.context: context]
-
-        return getAllPhotosData()
-            .map { try decoder.decode([PhotoMO].self, from: $0) }
-            .do(onSuccess: { _ in try context.save() })
-            .asCompletable()
         
+        return getAllPhotosData()
+            .map { try decoder.decode([Photo].self, from: $0) }
+            .do(onSuccess: { photos in
+                for photo in photos {
+                    let photoMO = PhotoMO(context: context)
+                    photoMO.id = Int64(photo.id)
+                    photoMO.albumId = Int64(photo.albumId)
+                    photoMO.title = photo.title
+                    photoMO.url = photo.url
+                    photoMO.thumbnailUrl = photo.thumbnailUrl
+                }
+                
+                try context.save()
+            })
+            .asCompletable()
     }
     
     static func getAllPhotosData() -> Single<Data> {
